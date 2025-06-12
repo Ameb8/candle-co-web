@@ -1,0 +1,26 @@
+.product-card {
+    transition: transform 0.2s ease;
+}
+
+.product-card:hover {
+    transform: scale(1.03);
+}
+
+.card-description {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    font-size: 0.9rem;
+}
+
+.product-card:hover .card-description {
+    max-height: 100px;
+    opacity: 1;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .product-card:hover .card-description {
+        display: block;
+    }
+}
