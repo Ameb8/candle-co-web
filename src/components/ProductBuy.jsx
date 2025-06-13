@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useCart } from '../contexts/CartContext';
 
 function QuantitySelector({ quantity, setQuantity }) {
     const increment = () => setQuantity(q => q + 1);
@@ -15,6 +16,11 @@ function QuantitySelector({ quantity, setQuantity }) {
 
 function ProductBuy({ product, onBack }) {
     const [quantity, setQuantity] = useState(1);
+    const { addItem } = useCart()
+
+    const handleAddToCart = () => {
+        addItem(product, quantity);
+    };
 
     return (
         <div className="container-fluid h-100 d-flex flex-column p-4">
@@ -49,7 +55,7 @@ function ProductBuy({ product, onBack }) {
 
                     <QuantitySelector quantity={quantity} setQuantity={setQuantity} />
 
-                    <button className="btn btn-primary mt-2" style={{ maxWidth: '200px' }}>
+                    <button className="btn btn-primary mt-2" style={{ maxWidth: '200px' }} onClick={handleAddToCart}>
                         Add to cart
                     </button>
                 </div>
