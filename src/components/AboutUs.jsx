@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 export default function AboutUsOverlayCarousel() {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [images, setImages] = useState([]);
+    const carouselRef = useRef(null);
     const baseURL = `${import.meta.env.VITE_API_URL}/design`;
 
     useEffect(() => {
@@ -12,8 +13,8 @@ export default function AboutUsOverlayCarousel() {
                 // Fetch header/body text
                 const textRes = await fetch(`${baseURL}/page-text`);
                 const textData = await textRes.json();
-                setTitle(textData.title);
-                setBody(textData.body);
+                setTitle(textData.about_us_title);
+                setBody(textData.about_us_body);
 
                 // Fetch images
                 const imgRes = await fetch(`${baseURL}/image-in-list/?list_name=about`, {
@@ -23,7 +24,7 @@ export default function AboutUsOverlayCarousel() {
                     }
                 });
                 const imgData = await imgRes.json();
-                setImages(imgData.images || []);
+                setImages(imgData.map(item => item.image.image));
             } catch (error) {
                 console.error('Fetch error:', error);
             }
@@ -34,7 +35,7 @@ export default function AboutUsOverlayCarousel() {
 
     return (
         <div className="position-relative">
-            <div id="aboutCarousel" className="carousel slide" data-bs-ride="carousel">
+            <div id="aboutCarousel" className="carousel slide" data-bs-ride="carousel" ref={carouselRef} >
                 <div className="carousel-inner">
                     {images.map((src, index) => (
                         <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index}>
