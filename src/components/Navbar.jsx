@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import ShopBy from './ShopBy';
+
 import './Navbar.css';
 
 function Navbar({ selectedPage, setSelectedPage }) {

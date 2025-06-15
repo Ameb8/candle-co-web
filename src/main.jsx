@@ -5,18 +5,23 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { ProductProvider} from "./contexts/ProductContext.jsx";
 import { CartProvider } from "./contexts/CartContext.jsx";
 import { CartUIProvider } from "./contexts/CartUIContext.jsx";
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
 import App from './App.jsx'
 import './index.css'
 
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
       <ProductProvider>
-          <CartProvider>
-              <CartUIProvider>
-                  <App />
-              </CartUIProvider>
-          </CartProvider>
+          <Elements stripe={stripePromise}>
+              <CartProvider>
+                  <CartUIProvider>
+                      <App />
+                  </CartUIProvider>
+              </CartProvider>
+          </Elements>
       </ProductProvider>
   </StrictMode>,
 )

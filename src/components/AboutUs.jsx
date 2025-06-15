@@ -7,6 +7,9 @@ export default function AboutUsOverlayCarousel() {
     const carouselRef = useRef(null);
     const baseURL = `${import.meta.env.VITE_API_URL}/design`;
 
+    const touchStartX = useRef(0);
+    const touchEndX = useRef(0);
+
     useEffect(() => {
         async function fetchContent() {
             try {
@@ -32,6 +35,42 @@ export default function AboutUsOverlayCarousel() {
 
         fetchContent();
     }, [baseURL]);
+
+
+    // Allow swiping through images
+    useEffect(() => {
+        const carouselInner = carouselRef.current?.querySelector('.carousel-inner');
+        if (!carouselInner) return;
+
+        const handleTouchStart = (e) => {
+            touchStartX.current = e.changedTouches[0].screenX;
+        };
+
+        const handleTouchEnd = (e) => {
+            touchEndX.current = e.changedTouches[0].screenX;
+            handleSwipe();
+        };
+
+        const handleSwipe = () => {
+            const deltaX = touchStartX.current - touchEndX.current;
+            const threshold = 50;
+            if (deltaX > threshold) {
+                // Swipe left → next
+                carouselRef.querySelector('.carousel-control-next')?.click();
+            } else if (deltaX < -threshold) {
+                // Swipe right → previous
+                carouselRef.querySelector('.carousel-control-prev')?.click();
+            }
+        };
+
+        carouselInner.addEventListener('touchstart', handleTouchStart, { passive: true });
+        carouselInner.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+        return () => {
+            carouselInner.removeEventListener('touchstart', handleTouchStart);
+            carouselInner.removeEventListener('touchend', handleTouchEnd);
+        };
+    }, []);
 
     return (
         <div className="position-relative">
