@@ -1,0 +1,66 @@
+import { useEffect, useState } from 'react';
+
+export default function AboutUsOverlayCarousel() {
+    const [title, setTitle] = useState('');
+    const [body, setBody] = useState('');
+    const [images, setImages] = useState([]);
+    const baseURL = `${import.meta.env.VITE_API_URL}/design`;
+
+    useEffect(() => {
+        async function fetchContent() {
+            try {
+                // Fetch header/body text
+                const textRes = await fetch(`${baseURL}/page-text`);
+                const textData = await textRes.json();
+                setTitle(textData.title);
+                setBody(textData.body);
+
+                // Fetch images
+                const imgRes = await fetch(`${baseURL}/image-in-list/?list_name=about`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const imgData = await imgRes.json();
+                setImages(imgData.images || []);
+            } catch (error) {
+                console.error('Fetch error:', error);
+            }
+        }
+
+        fetchContent();
+    }, [baseURL]);
+
+    return (
+        <div className="position-relative">
+            <div id="aboutCarousel" className="carousel slide" data-bs-ride="carousel">
+                <div className="carousel-inner">
+                    {images.map((src, index) => (
+                        <div className={`carousel-item ${index === 0 ? 'active' : ''}`} key={index}>
+                            <img src={src} className="d-block w-100" alt={`About image ${index + 1}`} />
+                        </div>
+                    ))}
+                </div>
+
+                {images.length > 1 && (
+                    <>
+                        <button className="carousel-control-prev" type="button" data-bs-target="#aboutCarousel" data-bs-slide="prev">
+                            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span className="visually-hidden">Previous</span>
+                        </button>
+                        <button className="carousel-control-next" type="button" data-bs-target="#aboutCarousel" data-bs-slide="next">
+                            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span className="visually-hidden">Next</span>
+                        </button>
+                    </>
+                )}
+            </div>
+
+            <div className="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center text-white text-center p-4 bg-dark bg-opacity-50">
+                <h1 className="display-4">{title}</h1>
+                <p className="lead" style={{ maxWidth: '600px' }}>{body}</p>
+            </div>
+        </div>
+    );
+}

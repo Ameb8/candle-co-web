@@ -2,6 +2,7 @@
 import ProductList from './components/ProductList.jsx'
 import Appbar from "./components/Appbar.jsx";
 import Navbar from "./components/Navbar.jsx";
+import AboutUs from "./components/AboutUs.jsx"
 import './App.css';
 import FilterCategory from "./components/FilterMenu.jsx";
 

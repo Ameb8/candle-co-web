@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useCart } from '../contexts/CartContext';
+import { useCartUI } from '../contexts/CartUIContext';
 
 function QuantitySelector({ quantity, setQuantity }) {
     const increment = () => setQuantity(q => q + 1);
@@ -15,11 +16,13 @@ function QuantitySelector({ quantity, setQuantity }) {
 }
 
 function ProductBuy({ product, onBack }) {
+    const { triggerWiggle } = useCartUI();
     const [quantity, setQuantity] = useState(1);
     const { addItem } = useCart()
 
     const handleAddToCart = () => {
         addItem(product, quantity);
+        triggerWiggle();
     };
 
     return (

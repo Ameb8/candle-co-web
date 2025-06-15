@@ -60,8 +60,10 @@ export function CartProvider({ children }) {
         dispatch({ type: 'CLEAR_CART' });
     };
 
+    const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+
     return (
-        <CartContext.Provider value={{ cart, addItem, removeItem, clearCart }}>
+        <CartContext.Provider value={{ cart, addItem, removeItem, clearCart, cartCount }}>
             {children}
         </CartContext.Provider>
     );

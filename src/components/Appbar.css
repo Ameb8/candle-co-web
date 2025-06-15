@@ -29,3 +29,7 @@
     cursor: pointer;
     color: #333;
 }
+
+.cart-icon-wrapper {
+    justify-self: end;
+}
