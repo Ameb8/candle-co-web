@@ -1,5 +1,6 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { ProductProvider} from "./contexts/ProductContext.jsx";
@@ -14,14 +15,16 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-      <ProductProvider>
-          <Elements stripe={stripePromise}>
-              <CartProvider>
-                  <CartUIProvider>
-                      <App />
-                  </CartUIProvider>
-              </CartProvider>
-          </Elements>
-      </ProductProvider>
+      <BrowserRouter>
+          <ProductProvider>
+              <Elements stripe={stripePromise}>
+                  <CartProvider>
+                      <CartUIProvider>
+                          <App />
+                      </CartUIProvider>
+                  </CartProvider>
+              </Elements>
+          </ProductProvider>
+      </BrowserRouter>
   </StrictMode>,
 )

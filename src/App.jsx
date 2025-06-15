@@ -1,4 +1,5 @@
 import { useState} from "react";
+import { Routes, Route, Navigate } from 'react-router-dom';
 import ProductList from './components/ProductList.jsx'
 import Appbar from "./components/Appbar.jsx";
 import Navbar from "./components/Navbar.jsx";
@@ -18,10 +19,19 @@ function App() {
                 <Navbar selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
             </div>
             <div className="flex-grow-1 overflow-auto">
-                {selectedPage === 'inventory' && <ProductList />}
-                {selectedPage === 'shopby' && <ProductList />}
-                {selectedPage === 'aboutus' && <AboutUs />}
-                {selectedPage === 'contact' && <ContactUs />}
+                <Routes>
+                    <Route path="/" element={<Navigate to="/inventory" replace />} />
+                    <Route path="/inventory" element={<ProductList />} />
+                    <Route path="/shopby" element={<ProductList />} />
+                    <Route path="/aboutus" element={<AboutUs />} />
+                    <Route path="/contact" element={<ContactUs />} />
+
+                    {/*
+                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/checkout" element={<Checkout />} />
+                    <Route path="*" element={<div>404 Not Found</div>} />
+                    */}
+                </Routes>
             </div>
         </div>
     );
