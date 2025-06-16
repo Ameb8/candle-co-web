@@ -1,8 +1,18 @@
 import { useCart } from '../contexts/CartContext';
+import { useNavigate } from 'react-router-dom';
 import './Cart.css';
 
 export default function Cart({ isOpen, onClose }) {
     const { cart, removeItem } = useCart();
+    const navigate = useNavigate();
+    const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+
+    // Close cart and navigate to checkout
+    const handleCheckoutClick = () => {
+        if (onClose) onClose();
+        navigate('/checkout');
+    };
 
     return (
         <div
@@ -25,7 +35,7 @@ export default function Cart({ isOpen, onClose }) {
                     <p>Your cart is empty.</p>
                 ) : (
                     <>
-                        {/* Header Row */}
+
                         <div className="cart-label-row d-flex align-items-center mb-2 px-2 fw-bold">
                             <div className="me-2" style={{ width: '40px' }}></div>
                             <div className="flex-grow-1">Item</div>
@@ -34,7 +44,7 @@ export default function Cart({ isOpen, onClose }) {
                             <div style={{ width: '70px' }}>Total</div>
                         </div>
 
-                        {/* Items */}
+
                         {cart.map(({ id, name, price, quantity, image }) => (
                             <div
                                 key={id}
@@ -60,9 +70,26 @@ export default function Cart({ isOpen, onClose }) {
                                 <div style={{ width: '70px' }}>${(price * quantity)}</div>
                             </div>
                         ))}
+
+                        <div className="d-flex justify-content-end border-top pt-3 mt-3 px-2">
+                            <h5>Total: ${total.toFixed(2)}</h5>
+                        </div>
+
+                        <div className="d-flex justify-content-end mt-3">
+                            <button
+                                className="btn btn-primary"
+                                onClick={handleCheckoutClick}
+                                disabled={cart.length === 0} // disable if cart empty
+                            >
+                                Proceed to Checkout
+                            </button>
+                        </div>
                     </>
                 )}
             </div>
         </div>
     );
 }
+
+
+

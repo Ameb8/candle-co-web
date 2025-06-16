@@ -5,6 +5,7 @@ import Appbar from "./components/Appbar.jsx";
 import Navbar from "./components/Navbar.jsx";
 import AboutUs from "./components/AboutUs.jsx"
 import ContactUs from './components/ContactUs';
+import Checkout from "./components/Checkout.jsx";
 import './App.css';
 import FilterCategory from "./components/FilterMenu.jsx";
 
@@ -25,10 +26,10 @@ function App() {
                     <Route path="/shopby" element={<ProductList />} />
                     <Route path="/aboutus" element={<AboutUs />} />
                     <Route path="/contact" element={<ContactUs />} />
+                    <Route path="/checkout" element={<Checkout />} />
 
                     {/*
                     <Route path="/cart" element={<Cart />} />
-                    <Route path="/checkout" element={<Checkout />} />
                     <Route path="*" element={<div>404 Not Found</div>} />
                     */}
                 </Routes>
