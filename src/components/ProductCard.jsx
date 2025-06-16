@@ -13,18 +13,22 @@ function ProductCard({ product, onClick }) {
             style={{ cursor: 'pointer' }}
         >
             {product.image ? (
-                <img
-                    src={product.image}
-                    className="card-img-top"
-                    alt={product.name}
-                    style={{ objectFit: 'cover', height: '200px' }}
-                />
+                <div className="card-img-container">
+                    <img
+                        src={product.image}
+                        className="card-img-top"
+                        alt={product.name}
+                        style={{ objectFit: 'cover', height: '380px', width: '100%' }}
+                    />
+                </div>
             ) : (
-                <div
-                    className="bg-secondary d-flex align-items-center justify-content-center"
-                    style={{ height: '200px', color: 'white' }}
-                >
-                    No Image
+                <div className="card-img-container">
+                    <div
+                        className="bg-secondary d-flex align-items-center justify-content-center"
+                        style={{ height: '200px', color: 'white' }}
+                    >
+                        No Image
+                    </div>
                 </div>
             )}
 
