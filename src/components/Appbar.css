@@ -33,3 +33,7 @@
 .cart-icon-wrapper {
     justify-self: end;
 }
+
+.icon-spacing {
+    margin-right: 8px; /* or whatever spacing you want */
+}
