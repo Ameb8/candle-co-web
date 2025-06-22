@@ -26,7 +26,7 @@ function ProductBuy({ product, onBack }) {
     };
 
     return (
-        <div className="container-fluid h-100 d-flex flex-column p-4">
+        <div className="container-fluid d-flex flex-column p-4" style={{ minHeight: '100vh' }}>
             <button
                 className="btn btn-secondary mb-3 align-self-start"
                 onClick={onBack}
@@ -34,8 +34,8 @@ function ProductBuy({ product, onBack }) {
                 &larr; Back to products
             </button>
 
-            <div className="d-flex flex-grow-1 gap-4" style={{ minHeight: 0 }}>
-                <div style={{ flex: '0 0 300px', maxHeight: '400px', overflow: 'hidden' }}>
+            <div className="d-flex flex-column flex-grow-1 gap-4" style={{ minHeight: 0 }}>
+                <div style={{ width: '100%' }}>
                     {product.image ? (
                         <img
                             src={product.image}
@@ -73,3 +73,5 @@ function ProductBuy({ product, onBack }) {
 }
 
 export default ProductBuy;
+
+

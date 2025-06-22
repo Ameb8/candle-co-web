@@ -35,7 +35,7 @@ export default function ContactOverlayCarousel() {
 
     return (
         <div className="position-relative">
-            <div className="text-center text-white bg-dark py-4">
+            <div className="text-center b py-4">
                 <h2>Contact Us</h2>
                 {contactNum && <p>Phone: {contactNum}</p>}
                 {contactMail && <p>Email: {contactMail}</p>}

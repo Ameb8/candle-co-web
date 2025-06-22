@@ -27,6 +27,7 @@ export default function AboutUsOverlayCarousel() {
                     }
                 });
                 const imgData = await imgRes.json();
+                console.log(imgData);
                 setImages(imgData.map(item => item.image.image));
             } catch (error) {
                 console.error('Fetch error:', error);
