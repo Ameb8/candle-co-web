@@ -37,3 +37,28 @@
 .icon-spacing {
     margin-right: 8px; /* or whatever spacing you want */
 }
+
+.search-input {
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+}
+
+.filter-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 300px;
+    background-color: #faf6ef;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 999; /* above most content, below modals if needed */
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.filter-sidebar.open {
+    transform: translateX(0);
+}

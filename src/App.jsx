@@ -31,10 +31,6 @@ function App() {
                     <Route path="/checkout" element={<Checkout />} />
                     <Route path="/success" element={<OrderSuccess />} />
                     <Route path="/shipment" element={<ViewOrder/>} />
-                    {/*
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="*" element={<div>404 Not Found</div>} />
-                    */}
                 </Routes>
             </div>
         </div>
@@ -42,3 +38,5 @@ function App() {
 }
 
 export default App
+
+

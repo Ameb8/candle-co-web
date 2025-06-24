@@ -9,6 +9,7 @@ export function ProductProvider({ children }) {
     const [categories, setCategories] = useState([]);
     const [minPrice, setMinPrice] = useState(null);
     const [maxPrice, setMaxPrice] = useState(null);
+    const [searchQuery, setSearchQuery] = useState('');
 
     // Generate full URL with category and price filters
     const buildUrl = () => {
@@ -28,6 +29,10 @@ export function ProductProvider({ children }) {
             queryParams.push(`price_max=${maxPrice}`);
         }
 
+        if (searchQuery.trim() !== '') {
+            queryParams.push(`search=${encodeURIComponent(searchQuery.trim())}`);
+        }
+
         return `${baseURL}${queryParams.length ? '?' + queryParams.join('&') : ''}`;
     };
 
@@ -44,7 +49,7 @@ export function ProductProvider({ children }) {
         } finally {
             setLoading(false);
         }
-    }, [categories, minPrice, maxPrice]);
+    }, [categories, minPrice, maxPrice, searchQuery]);
 
     // Run fetch on mount and whenever categories change
     useEffect(() => {
@@ -85,7 +90,9 @@ export function ProductProvider({ children }) {
             setMaxPrice,
             clearMinPrice,
             clearMaxPrice,
-            clearPrices
+            clearPrices,
+            searchQuery,
+            setSearchQuery
         }}>
             {children}
         </ProductContext.Provider>

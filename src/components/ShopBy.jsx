@@ -1,8 +1,9 @@
 import { useEffect, useState, useContext } from 'react';
+import { Button } from 'react-bootstrap';
 import { ProductContext } from '../contexts/ProductContext.jsx';
 import PriceSlider from '../components/PriceSlider';
 
-function ShopBy() {
+function ShopBy({ onClose }) {
     const { addCategory, removeCategory, currentCategories } = useContext(ProductContext);
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -41,6 +42,12 @@ function ShopBy() {
 
     return (
         <div>
+            <div className="d-flex justify-content-start mb-3">
+                <Button variant="outline-secondary" size="sm" onClick={onClose}>
+                    &larr; Back
+                </Button>
+            </div>
+
             <div className="d-flex gap-3 flex-wrap">
                 {categories.map((category) => {
                     const isActive = currentCategories.includes(category);
