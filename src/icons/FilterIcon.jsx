@@ -33,4 +33,5 @@ const FilterIcon = (props) => (
         />
     </svg>
 )
+
 export default FilterIcon

@@ -24,5 +24,6 @@ const SearchIcon = (props) => (
         />
     </svg>
 )
+
 export default SearchIcon
 
